@@ -23,28 +23,26 @@ class CashRegister:
         self.total_price = 0
         self.discount = 0
 
-    def add_item(self):
-        pass
+    def add_item(self, item):
+        self.total_items.append(item)
 
-    def remove_item(self):
-        pass
+    def remove_item(self, item):
+        self.total_items.remove(item)
 
-    def apply_discount(self):
-        pass
+    def apply_discount(self, discount_percentage):
+        discount_amount = self.total_price * discount_percentage
+        self.discount += discount_amount
+        print("Discount Applied")
 
     def get_total(self):
-        pass
+        self.total_price = 0
+        for item_price in self.total_items.values():
+            self.total_price += item_price
 
-    def show_items(self):
-        pass
+    def show_items(self, item):
+        print(self.total_items(item))
 
     def reset_register(self):
         pass
 
-
-# EXAMPLE code run:
-
-# ADD
-
-
-"""
+add_item('bananas')

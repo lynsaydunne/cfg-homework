@@ -14,35 +14,56 @@ For example, method add_item probably accepts some kind of an item?..
 
 """
 
-
 class CashRegister:
 
     def __init__(self):
+        self.total_items = {}
+        self.total_price = 0.00
+        self.discount = 0
 
-        self.total_items = None # {'item': 'price'}
+    def add_item(self, item, price):
+        self.total_items[item] = price
+        self.total_price = self.total_price + price
+
+    def remove_item(self, item):
+        price = self.total_items.pop(item)
+        self.total_price = self.total_price - price
+
+    def apply_discount(self, discount_amount):
+        self.discount += discount_amount
+
+    def get_total(self):
+        return max(self.total_price - self.discount, 0)
+
+    def show_items(self):
+        for item, price in self.total_items.items():
+            print(f"You have {item} that costs £{price:.2f}")
+        print(f"Your total is £{self.total_price:.2f}")
+        print(f"Your discount comes to: £{self.discount:.2f}")
+        print(f"Your final total is £{self.get_total():.2f}")
+
+    def reset_register(self):
+        self.total_items.clear()
         self.total_price = 0
         self.discount = 0
 
-    def add_item(self, item):
-        self.total_items.append(item)
 
-    def remove_item(self, item):
-        self.total_items.remove(item)
+if __name__ == '__main__':
+    # my_list = ['cat', 'dog', 'sheep']
+    my_cash_register = CashRegister()
+    # print(my_cash_register.total_items)
+    # print(my_cash_register.total_price)
+    my_cash_register.add_item('bananas', 1.00)
+    my_cash_register.add_item('kiwi', 1.50)
+    my_cash_register.add_item('green beans', 0.75)
+    print(my_cash_register.total_items)
+    print(my_cash_register.get_total())
+    my_cash_register.remove_item('kiwi')
+    print(my_cash_register.total_items)
+    print(my_cash_register.get_total())
+    my_cash_register.apply_discount(1.00)
+    print(my_cash_register.get_total())
+    my_cash_register.show_items()
+    my_cash_register.reset_register()
+    print(my_cash_register.total_items)
 
-    def apply_discount(self, discount_percentage):
-        discount_amount = self.total_price * discount_percentage
-        self.discount += discount_amount
-        print("Discount Applied")
-
-    def get_total(self):
-        self.total_price = 0
-        for item_price in self.total_items.values():
-            self.total_price += item_price
-
-    def show_items(self, item):
-        print(self.total_items(item))
-
-    def reset_register(self):
-        pass
-
-add_item('bananas')

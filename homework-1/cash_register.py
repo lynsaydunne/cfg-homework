@@ -12,6 +12,7 @@ Below is a starter code:
 For example, method add_item probably accepts some kind of an item?..
 3. You will need to write some examples of how your code works.
 
+
 """
 
 class CashRegister:

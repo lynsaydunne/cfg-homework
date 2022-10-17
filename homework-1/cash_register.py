@@ -22,19 +22,29 @@ class CashRegister:
         self.total_price = 0.00
         self.discount = 0
 
+#   add item and price to cash register
+
     def add_item(self, item, price):
         self.total_items[item] = price
         self.total_price = self.total_price + price
+
+#   remove item (and associated price) from cash register
 
     def remove_item(self, item):
         price = self.total_items.pop(item)
         self.total_price = self.total_price - price
 
+#   applies a discount in £ set by the user in the examples
+
     def apply_discount(self, discount_amount):
         self.discount += discount_amount
 
+#   returns total of all items and makes sure the discount is not greater than the total.
+
     def get_total(self):
         return max(self.total_price - self.discount, 0)
+
+#   shows items and price, discount and final price.
 
     def show_items(self):
         for item, price in self.total_items.items():
@@ -43,28 +53,31 @@ class CashRegister:
         print(f"Your discount comes to: £{self.discount:.2f}")
         print(f"Your final total is £{self.get_total():.2f}")
 
+#   resets cash register back to zero.
+
     def reset_register(self):
         self.total_items.clear()
         self.total_price = 0
         self.discount = 0
+        print("The register is cleared, please add an item")
 
 
 if __name__ == '__main__':
-    # my_list = ['cat', 'dog', 'sheep']
     my_cash_register = CashRegister()
-    # print(my_cash_register.total_items)
-    # print(my_cash_register.total_price)
     my_cash_register.add_item('bananas', 1.00)
     my_cash_register.add_item('kiwi', 1.50)
     my_cash_register.add_item('green beans', 0.75)
-    print(my_cash_register.total_items)
-    print(my_cash_register.get_total())
-    my_cash_register.remove_item('kiwi')
-    print(my_cash_register.total_items)
-    print(my_cash_register.get_total())
-    my_cash_register.apply_discount(1.00)
-    print(my_cash_register.get_total())
+    my_cash_register.add_item('beets', 1.25)
+    my_cash_register.add_item('dragon fruit', 2.25)
     my_cash_register.show_items()
+    my_cash_register.get_total()
+    my_cash_register.remove_item('kiwi')
+    my_cash_register.show_items()
+    my_cash_register.get_total()
+    my_cash_register.apply_discount(1.00)
+    my_cash_register.show_items()
+    my_cash_register.get_total()
     my_cash_register.reset_register()
-    print(my_cash_register.total_items)
+    my_cash_register.show_items()
+    my_cash_register.get_total()
 

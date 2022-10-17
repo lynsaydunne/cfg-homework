@@ -11,54 +11,73 @@ Software Student and Data Science student.
 
 
 """
+class Student:
 
-class CFGStudent:
-
-    def __init__(self):
-        self.name = {}
-        self.age = 0
-        self.id = {}
-        self.subjects = dict()
-        self.grade = None
-
-    def add_student(self, name, age, id, subject, grade=None):
+    def __init__(self, name, age, id):
         self.name = name
         self.age = age
         self.id = id
-        self.subjects = subject
-        self.grade = grade
+        self.subjects = dict()
 
-    def add_subject(self,subject, grade):
+#   class CFGStudent(<should inherit from Student>)
+
+class CFGStudent(Student):
+
+    def __init__(self, name, age, id, specialization):
+        super().__init__(name, age, id)
+        self.specialization = specialization
+
+#     create new methods that manage student's subjects (add/remove new subject and its grade to the dict)
+
+    def add_subject(self, subject, grade):
         self.subjects.update({subject: grade})
-        print(f"{subject} with grade {grade} has been added to Student ID: {student_id}")
+        print(f"{subject} with grade {grade} has been added to Student ID: {self.id}")
 
-    def remove_subject(self, student_id, subject):
-        if student_id == student_id:
-            self.subjects.pop(subject)
-            print(f"{subject} has been added to Student ID: {student_id}")
+#   Here I tried to add an if/else statement to make sure the subject was in the students record and if not it would
+#   give an error print statement, but it then did it for everyone, so I removed it- would love to understand what I did wrong.
+    # def remove_subject(self, subject):
+    #     if subject == self.subjects:
+    #         self.subjects.pop(subject)
+    #         print(f"{subject} has been removed from Student ID: {self.id}")
+    #     else:
+    #         print(f"There is no record of {self.id} taking {subject}.")
 
-    def average_grade(self, grade, subjects):
-        total_grade = sum(grade)
-        total_grade / len(subjects)
+    def remove_subject(self, subject):
+        self.subjects.pop(subject)
+        print(f"{subject} has been removed from Student ID: {self.id}")
+
+#     create a method  (and a new variable) to get student's overall mark (use average)
+
+    def average_grade(self):
+        total_grade = sum(self.subjects.values())
+        average = total_grade / len(self.subjects)
+        print(f"{self.id} has an average grade of {average:.2f}")
+        return average
+
+#     create a method to view all subjects taken by a student
 
     def display_subjects_taken(self):
-            print('Name', self.name)
-            print('age', self.age)
-            print('id', self.id)
-            print('subjects', self.subjects)
-            print('subjects', self.grade)
+        print(f"{self.name} is taking {self.subjects}")
+
 
 if __name__ == '__main__':
-    student_list = CFGStudent()
-    student_list.add_student('Nancy', 18, 95137, 'Software', 99)
-    student_list.add_student('John', 19, 85246, 'Full Stack', 92)
-    student_list.add_student('Sam', 22, 13795, 'Software', 98)
-    print(student_list.display_subjects_taken())
-    student_list.add_subject('Full Stack', 92)
-    student_list.display_subjects_taken()
 
-
-# class CFGStudent(<should inherit from Student>)
-#     create new methods that manage student's subjects (add/remove new subject and its grade to the dict)
-#     create a method to view all subjects taken by a student
-#     create a method  (and a new variable) to get student's overall mark (use average)
+    nancy = CFGStudent('Nancy', 18, 95137, 'Software')
+    john = CFGStudent('John', 19, 85246, 'Full Stack')
+    sam = CFGStudent('Sam', 22, 13795, 'Software')
+    nancy.add_subject('Python', 92)
+    nancy.add_subject('SQL', 90)
+    nancy.add_subject('OOP', 89)
+    john.add_subject('Python', 90)
+    john.add_subject('OOP', 89)
+    sam.add_subject('Python', 94)
+    sam.add_subject('SQL', 88)
+    nancy.display_subjects_taken()
+    sam.display_subjects_taken()
+    john.display_subjects_taken()
+    nancy.average_grade()
+    nancy.remove_subject('OOP')
+    nancy.display_subjects_taken()
+    nancy.average_grade()
+    sam.average_grade()
+    john.average_grade()

@@ -33,7 +33,7 @@ def search_in_matrix(matrix, target):
             if value == target:
                 return (x, y)
             # else:
-            #     return (-1, -1)
+            #     return (-1,-1) # can't get this part to work as if added they all show -1, -1 except target 1 :(
 
 matrix = [
 [1, 4, 7, 12, 15, 1000],

@@ -31,8 +31,8 @@ def search_in_matrix(matrix, target):
     for x, matrix in enumerate(matrix):
         for y, value in enumerate(matrix):
             if value == target:
-                return (x, y)
-    return (-1,-1)
+                return [x, y]
+    return [-1, -1]
 
 matrix = [
 [1, 4, 7, 12, 15, 1000],
